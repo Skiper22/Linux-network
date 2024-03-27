@@ -222,45 +222,33 @@
 
 ws1 `ip a`
 
-![ws1 ip a](misc/part_2/1.png)
-
 ws2 `ip a`
-
-![ws2 ip a](misc/part_2/2.png)
 
 
 ##### На обеих машинах задать следующие адреса и маски: ws1 - 192.168.100.10, маска /16, ws2 - 172.24.116.8, маска /12
 
 Для каждой из машин `sudo nano /etc/netplan/00-installer-config.yaml` 
 
-![netplan config ws1](misc/part_2/3.png)
-![netplan config ws2](misc/part_2/4.png)
+![netplan config ws1](images/2.1.png)
+![netplan config ws2](images/2.2.png)
 
 Применяем настройки `sudo netplan apply` 
-
-![netplan config ws1](misc/part_2/5.png)
-
-![netplan config ws1](misc/part_2/6.png)
 
 ### 2.1. Добавление статического маршрута вручную
 
 `sudo ip r add 172.24.116.8 dev enp0s3`
 
-![ws1 ip r add](misc/part_2/7.png)
-
 `sudo ip r add 192.168.100.10 dev enp0s3`
-
-![ws2 ip r add](misc/part_2/8.png)
 
 #### Пингую соединение между машинами
 
 `ping -c 4 172.24.116.8`
 
-![ping ws2](misc/part_2/9.png)
+![ping ws2](images/2.3.png)
 
 `ping -c 4 192.168.100.10`
 
-![ping ws1](misc/part_2/10.png)
+![ping ws1](images/2.4.png)
 
 ### 2.2. Добавление статического маршрута с сохранением
 
@@ -270,8 +258,8 @@ ws2 `ip a`
 
 Для каждой из машин `sudo nano /etc/netplan/00-installer-config.yaml` 
 
-![netplan config ws1](misc/part_2/11.png)
-![netplan config ws2](misc/part_2/12.png)
+![netplan config ws1](images/2.5.png)
+![netplan config ws2](images/2.6.png)
 
 Применяем настройки `sudo netplan apply` 
 
@@ -279,11 +267,11 @@ ws2 `ip a`
 
 `ping -c 4 172.24.116.8`
 
-![ping ws2](misc/part_2/13.png)
+![ping ws2](images/2.7.png)
 
 `ping -c 4 192.168.100.10`
 
-![ping ws1](misc/part_2/14.png)
+![ping ws1](images/2.8.png)
 
 ## Часть 3. Утилита iperf3
 #### Перевести и записать в отчёт: 8 Mbps в MB/s, 100 MB/s в Kbps, 1 Gbps в Mbps
@@ -296,11 +284,11 @@ ws2 `ip a`
 
 Слушаю на стороне сервера `iperf3 -s`
 
-![iperf3 -s](misc/part_3/1.png)
+![iperf3 -s](misc/3.1.png)
 
 На стороне клиента `-с 192.168.100.10`
 
-![iperf3 -с 192.168.100.10](misc/part_3/2.png)
+![iperf3 -с 192.168.100.10](images/3.2.png)
 
 ## Часть 4. Сетевой экран
 
@@ -308,9 +296,9 @@ ws2 `ip a`
 
 Создаю файл /etc/firewall.sh, имитирующий фаервол на обеих машинах `sudo nano /etc/firewall.sh`
 
-![ws1 /etc/firewall.sh](misc/part_4/1.png)
+![ws1 /etc/firewall.sh](images/4.1.png)
 
-![ws2 /etc/firewall.sh](misc/part_4/2.png)
+![ws2 /etc/firewall.sh](images/4.2.png)
 
 Запускаю файлы на обеих машинах командами `sudo chmod +x /etc/firewall.sh` и `sudo /etc/firewall.sh`
 
@@ -322,7 +310,7 @@ ws2 `ip a`
 
 Затем вызываю утилиту nmap `sudo nmap 192.168.100.10`
 
-![nmap](misc/part_4/3.png)
+![nmap](images/4.3.png)
 
 ## Часть 5. Статическая маршрутизация сети
 ### 5.1. Настройка адресов машин
