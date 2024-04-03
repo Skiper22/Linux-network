@@ -316,28 +316,25 @@ ws2 `ip a`
 ### 5.1. Настройка адресов машин
 #### Настраиваю конфигурацию машин согласно схеме на рисунке
 
-![network](../misc/images/part5_network.png)
-
-
 ws11 
 
-![ws11 etc/netplan/00-installer-config.yaml](misc/part_5/1.png)
+![ws11 etc/netplan/00-installer-config.yaml](images/5.1.png)
 
 ws22
 
-![ws22 etc/netplan/00-installer-config.yaml](misc/part_5/2.png)
+![ws22 etc/netplan/00-installer-config.yaml](images/5.2.png)
 
 ws21 
 
-![ws21 etc/netplan/00-installer-config.yaml](misc/part_5/3.png)
+![ws21 etc/netplan/00-installer-config.yaml](images/5.3.png)
 
 r1
 
-![r1 etc/netplan/00-installer-config.yaml](misc/part_5/4.png)
+![r1 etc/netplan/00-installer-config.yaml](images/5.4.png)
 
 r2
 
-![r2 etc/netplan/00-installer-config.yaml](misc/part_5/5.png)
+![r2 etc/netplan/00-installer-config.yaml](images/5.5.png)
 
 Применяю настройки на каждой из машин `sudo netplan apply`
 
@@ -345,57 +342,53 @@ r2
 
 ws11 
 
-![ws11 ip -4 a](misc/part_5/6.png)
+![ws11 ip -4 a](images/5.6.png)
 
 ws22 
 
-![ws22 ip -4 a](misc/part_5/7.png)
+![ws22 ip -4 a](images/5.7.png)
 
 ws21 
 
-![ws21 ip -4 a](misc/part_5/8.png)
+![ws21 ip -4 a](images/5.8.png)
 
 r1 
 
-![r1 ip -4 a](misc/part_5/9.png)
+![r1 ip -4 a](images/5.9.png)
 
 r2
 
-![r2 ip -4 a](misc/part_5/10.png)
+![r2 ip -4 a](images/5.10.png)
 
 Пингую ws22 с ws21 `ping -c 4 10.20.0.20`
 
-![ping ws22 с ws21](misc/part_5/11.png)
+![ping ws22 с ws21](images/5.12.png)
 
 Пингую r1 с ws11 `ping -c 4 10.10.0.1`
 
-![ping r1 с ws11](misc/part_5/12.png)
+![ping r1 с ws11](images/5.13.png)
 
 ### 5.2. Включение переадресации IP-адресов.
 
 Включаю переадресацию IP, на роутерах `sudo sysctl -w net.ipv4.ip_forward=1`
 
-![переадресации IP r1](misc/part_5/13.png)
-
-![переадресации IP r2](misc/part_5/14.png)
-
 Открываю файл конфигурации на обеих машинах `sudo nano /etc/sysctl.conf`
 
-![/etc/sysctl.conf](misc/part_5/15.png)
+![/etc/sysctl.conf](images/5.14.png)
 
 ### 5.3. Установка маршрута по-умолчанию
 #### Настриваю маршрут по-умолчанию (шлюз) для рабочих станций
 ws11 
 
-![ws11 etc/netplan/00-installer-config.yaml](misc/part_5/16.png)
+![ws11 etc/netplan/00-installer-config.yaml](images/5.15.png)
 
 ws22
 
-![ws22 etc/netplan/00-installer-config.yaml](misc/part_5/17.png)
+![ws22 etc/netplan/00-installer-config.yaml](images/5.16.png)
 
 ws21 
 
-![ws21 etc/netplan/00-installer-config.yaml](misc/part_5/18.png)
+![ws21 etc/netplan/00-installer-config.yaml](images/5.17.png)
 
 Применяю настройки на каждой из машин `sudo netplan apply`
 
@@ -403,25 +396,26 @@ ws21
 
 ws11 `ip r`
 
-![ws11 ip r](misc/part_5/19.png)
+![ws11 ip r](images/5.18.png)
 
 ws22 `ip r`
 
-![ws22 ip r](misc/part_5/21.png)
+![ws22 ip r](images/5.19.png)
 
 ws21 `ip r`
 
-![ws21 ip r](misc/part_5/20.png)
+![ws21 ip r](images/5.20.png)
 
 #### Пингую r2 с ws11
 
 `ping -c 4 10.100.0.12`
 
-![ws21 ip r](misc/part_5/22.png)
+![ws21 ip r](images/5.21.png)
 
 Смотрю в r2 `sudo tcpdump -tn -i enp0s8`
 
-![ws21 ip r](misc/part_5/23.png)
+![wsr2 ip r](images/5.22.png)
+
 
 ### 5.4. Добавление статических маршрутов
 
@@ -429,26 +423,24 @@ ws21 `ip r`
 
 r1
 
-![r1 etc/netplan/00-installer-config.yaml](misc/part_5/24.png)
+![r1 etc/netplan/00-installer-config.yaml](images/5.23.png)
 
 r2
 
-![r2 etc/netplan/00-installer-config.yaml](misc/part_5/25.png)
+![r2 etc/netplan/00-installer-config.yaml](images/5.24.png)
 
 Применяю настройки на обеих роутерах `sudo netplan apply`
 
 
 r1 `ip r`
 
-![r1 ip r](misc/part_5/26.png)
+![r1 ip r](images/5.25.png)
 
 r2 `ip r`
 
-![r2 ip r](misc/part_5/27.png)
+![r2 ip r](images/5.26.png)
 
 Запускаю команды `ip r list 10.10.0.0/18` и `ip r list 0.0.0.0/0` на ws11
-
-![r2 ip r](misc/part_5/28.png)
 
 >ws11 соединена с сетью 10.10.0.0/18 поэтому, подключение произошло напрямую, но не соединена с 0.0.0.0/0 - сработало дефолное подключение через роутер.
 
@@ -456,21 +448,21 @@ r2 `ip r`
 
  Запускаю команду дампа на r1 `sudo tcpdump -tnv -i enp0s8`
 
-![r1 dump](misc/part_5/29.png)
+![r1 dump](images/5.27.png)
 
 На ws11 `traceroute 10.20.0.10`
 
-![ws11 traceroute 10.20.0.10](misc/part_5/30.png)
+![ws11 traceroute 10.20.0.10](images/5.28.png)
 
 ### 5.6. Использование протокола ICMP при маршрутизации
 
 Запускаю на r1 перехват сетевого трафика `tcpdump -n -i enp0s8 icmp`
 
-![r1 dump](misc/part_5/31.png)
+![r1 dump](images/5.29.png)
 
 Пингую с ws11 несуществующий IP `ping -c 1 10.30.0.111`
 
-![ws11 ping](misc/part_5/32.png)
+![ws11 ping](images/5.30.png)
 
 ## Часть 6. Динамическая настройка IP с помощью DHCP
 
@@ -480,21 +472,21 @@ r2 `ip r`
 
 Открываю конфиг и добавляю изменения в r2 `sudo nano  /etc/dhcp/dhcpd.conf`
 
-![dhcpd.conf](misc/part_6/1.png)
+![dhcpd.conf](images/6.1.png)
 
 В файл resolv.conf прописываю nameserver 8.8.8.8
 
-![resolv.conf](misc/part_6/2.png)
+![resolv.conf](images/6.2.png)
 
 Перезагружаю службу DHCP `systemctl restart isc-dhcp-server` и проверяю ее статус `systemctl status isc-dhcp-server`
 
-![r2 dhcp status](misc/part_6/3.png)
+![r2 dhcp status](images/6.4.png)
 
 Обновляю настройки в ws21 и ws22
 
-![ws21 /etc/netplan/00-installer-config.yaml](misc/part_6/4.png)
+![ws21 /etc/netplan/00-installer-config.yaml](images/6.5.png)
 
-![ws22 /etc/netplan/00-installer-config.yaml](misc/part_6/5.png)
+![ws22 /etc/netplan/00-installer-config.yaml](images/6.6.png)
 
 Применяю настройки на обеих машинах `sudo netplan apply`
 
@@ -504,25 +496,25 @@ r2 `ip r`
 
 ws21 `ip a`
 
-![ws21 ip a](misc/part_6/6.png)
+![ws21 ip a](images/6.7.png)
 
 ws22 `ip a`
 
-![ws22 ip a](misc/part_6/7.png)
+![ws22 ip a](images/6.8.png)
 
 Пингую ws22 с ws21  `ping -c 4 10.20.0.5`
 
-![ws22 ip a](misc/part_6/8.png)
+![ws22 ip a](images/6.9.png)
 
 Указываю MAC адрес у ws21
 
 В настройках VB
 
-![ws11 mac](misc/part_6/9.png)
+![ws11 mac](images/6.10.png)
 
 В конфигурационном файле
 
-![ws11 yaml mac](misc/part_6/10.png)
+![ws11 yaml mac](images/6.11.png)
 
 #### Для r1 настраиваю аналогично r2, но делаю выдачу адресов с жесткой привязкой к MAC-адресу (ws11)
 
@@ -530,35 +522,35 @@ ws22 `ip a`
 
 Открываю конфиг и добавляю изменения в r1 `sudo nano  /etc/dhcp/dhcpd.conf`
 
-![dhcpd.conf](misc/part_6/11.png)
+![dhcpd.conf](images/6.12.png)
 
 В файл resolv.conf прописываю nameserver 8.8.8.8
 
-![resolv.conf](misc/part_6/2.png)
+![resolv.conf](images/6.2.png)
 
 Перезагружаю службу DHCP `systemctl restart isc-dhcp-server` и проверяю ее статус `systemctl status isc-dhcp-server`
 
-![r2 dhcp status](misc/part_6/12.png)
+![r2 dhcp status](images/6.13.png)
 
 Обновляю настройки в ws11
 
-![ws11 /etc/netplan/00-installer-config.yaml](misc/part_6/13.png)
+![ws11 /etc/netplan/00-installer-config.yaml](images/6.14.png)
 
 Применяю настройки `sudo netplan apply`
 
 ws11 `ip a`
 
-![ws11 ip a](misc/part_6/14.png)
+![ws11 ip a](images/6.15.png)
 
 Пингую ws11 с ws22  `ping -c 4 10.10.0.2`
 
-![ws11 ping](misc/part_6/15.png)
+![ws11 ping](images/6.16.png)
 
 #### Запрашиваю с ws21 обновление ip адреса
 
 ip на ws21 до запроса нового `ip a`
 
-![ws11 ip a](misc/part_6/16.png)
+![ws11 ip a](images/6.17.png)
 
 Запрос нового ip `sudo dhclient -v`
 
@@ -566,7 +558,7 @@ ip на ws21 до запроса нового `ip a`
 
 ws11 `ip a`
 
-![ws11 ip a](misc/part_6/17.png)
+![ws11 ip a](images/6.18.png)
 
 ## Часть 7. NAT
 
@@ -574,35 +566,34 @@ ws11 `ip a`
 
 В файле /etc/apache2/ports.conf на ws22 и r1 меняю строку Listen 80 на Listen 0.0.0.0:80
 
-![ports.conf](misc/part_7/1.png)
+![ports.conf](images/7.1.png)
 
 Запускаю веб-сервер на ws22 и r1 `service apache2 start` и проверяю `systemctl status apache2`
 
-![start apache 2](misc/part_7/2.png)
+![start apache 2](images/7.2.png)
 
-![start apache 2](misc/part_7/3.png)
 
 Создаю файл /etc/firewall.sh, имитирующий фаервол на r2 `sudo nano /etc/firewall.sh`
 
-![r2 /etc/firewall.sh](misc/part_7/4.png)
+![r2 /etc/firewall.sh](images/7.3.png)
 
 Запускаю файл `sudo chmod +x /etc/firewall.sh` и `sudo /etc/firewall.sh`
 
 Пингую ws22 с r1 
 
-![ping ws22 from r1](misc/part_7/5.png)
+![ping ws22 from r1](images/7.4.png)
 
 Добавляю в фаервол еще одно правило
 
-![r2 /etc/firewall.sh](misc/part_7/6.png)
+![r2 /etc/firewall.sh](images/7.5.png)
 
 Пингую ws22 с r1 
 
-![ping ws22 from r1](misc/part_7/7.png)
+![ping ws22 from r1](images/7.6.png)
 
 Добавляю еще правила в фаервол
 
-![r2 /etc/firewall.sh](misc/part_7/8.png)
+![r2 /etc/firewall.sh](images/7.8.png)
 
 >- t - указывает на используемую таблицу
 >- p - указывает протокол, такие как tcp, udp, udplite и другие, поддерживаемые системой, ознакомиться со списком можно в файле /etc/protocols
@@ -618,7 +609,7 @@ ws11 `ip a`
 
 Проверяю соединение по TCP для SNAT, для этого с ws22 подключаюсь к серверу Apache на r1 `sudo telnet 10.100.0.11 80`
 
-![telnet](misc/part_7/9.png)
+![telnet](images/7.9.png)
 
 ## Часть 8. Допополнительно. Знакомство с SSH Tunnels
 
