@@ -593,7 +593,7 @@ ws11 `ip a`
 
 Добавляю еще правила в фаервол
 
-![r2 /etc/firewall.sh](images/7.8.png)
+![r2 /etc/firewall.sh](images/7.7.png)
 
 >- t - указывает на используемую таблицу
 >- p - указывает протокол, такие как tcp, udp, udplite и другие, поддерживаемые системой, ознакомиться со списком можно в файле /etc/protocols
@@ -609,7 +609,7 @@ ws11 `ip a`
 
 Проверяю соединение по TCP для SNAT, для этого с ws22 подключаюсь к серверу Apache на r1 `sudo telnet 10.100.0.11 80`
 
-![telnet](images/7.9.png)
+![telnet](images/7.8.png)
 
 ## Часть 8. Допополнительно. Знакомство с SSH Tunnels
 
@@ -617,26 +617,26 @@ ws11 `ip a`
 
 В файле /etc/apache2/ports.conf меняю строку Listen 80 на Listen localhost:80
 
-![ports.conf](misc/part_8/1.png)
+![ports.conf](images/8.1.png)
 
 Запускаю веб-сервер на ws22  `service apache2 start` и проверяю `systemctl status apache2`
 
-![start apache 2](misc/part_8/2.png)
+![start apache 2](images/8.2.png)
 
 Запускаю фаервол на r2 `sudo /etc/firewall.sh`
 
-![firewall r2](misc/part_8/3.png)
+![firewall r2](images/8.3.png)
 
 Local TCP forwarding с ws21 до ws22
 
-![Local TCP](misc/part_8/4.png)
+![Local TCP](images/8.4.png)
 
-![telenet ](misc/part_8/5.png)
+![telenet ](images/8.5.png)
 
 Remote TCP forwarding c ws11 до ws22
 
-![Local TCP](misc/part_8/6.png)
+![Local TCP](images/8.6.png)
 
-![telenet ](misc/part_8/7.png)
+![telenet ](images/8.7.png)
 
 [Оглавление](#оглавление)
